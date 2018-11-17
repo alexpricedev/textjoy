@@ -116,7 +116,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
           currency={currency}
           description="Weekly thoughtful messages via SMS"
           email={formValues.customerEmail}
-          image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          image="https://s3.eu-west-2.amazonaws.com/remoteone/stripe-icon.png"
           label="Buy Gift"
           locale="auto"
           name="ThoughtfulSMS"
