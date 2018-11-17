@@ -19,6 +19,7 @@
     "react-dom": "^16.7.0-alpha.2",
     "react-stripe-checkout": "^2.6.3",
     "stripe": "^6.15.0",
+    "twilio": "^3.24.0",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
