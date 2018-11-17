@@ -68,7 +68,10 @@ const onToken = metadata => token => {
     });
 };
 
+const initalError = { field: '', message: '' };
+
 const Checkout = ({ currentCollection, setCollection }) => {
+  const [error, setError] = useState(initalError);
   const [formValues, setFormValue] = useState({
     recipientFirstName: '',
     recipientPhoneNumber: '',
@@ -77,8 +80,13 @@ const Checkout = ({ currentCollection, setCollection }) => {
     customerEmail: '',
   });
 
-  const updateState = e =>
-    setFormValue({ ...formValues, [e.target.id]: e.target.value });
+  const updateState = e => {
+    const field = e.target.id;
+    setFormValue({ ...formValues, [field]: e.target.value });
+    if (field === error.field) {
+      setError(initalError);
+    }
+  };
 
   return (
     <div className="wrapper">
@@ -100,7 +108,11 @@ const Checkout = ({ currentCollection, setCollection }) => {
         />
         <label htmlFor="recipientFirstName">Recipient's First Name</label>
         <input
-          className="input"
+          className={
+            error.field === 'recipientFirstName'
+              ? 'input input--error'
+              : 'input'
+          }
           id="recipientFirstName"
           onChange={updateState}
           value={formValues.recipientFirstName}
@@ -127,7 +139,9 @@ const Checkout = ({ currentCollection, setCollection }) => {
         />
         <label htmlFor="customerName">Your Name</label>
         <input
-          className="input"
+          className={
+            error.field === 'customerName' ? 'input input--error' : 'input'
+          }
           id="customerName"
           onChange={updateState}
           value={formValues.customerName}
@@ -135,12 +149,15 @@ const Checkout = ({ currentCollection, setCollection }) => {
         />
         <label htmlFor="customerEmail">Your Email Address</label>
         <input
-          className="input"
+          className={
+            error.field === 'customerEmail' ? 'input input--error' : 'input'
+          }
           id="customerEmail"
           onChange={updateState}
           value={formValues.customerEmail}
           type="email"
         />
+        {error.message && <div className="error-message">{error.message}</div>}
         <StripeCheckout
           amount={amount}
           currency={currency}
@@ -156,7 +173,41 @@ const Checkout = ({ currentCollection, setCollection }) => {
             recipientTimezone: formValues.recipientTimezone.value,
             collectionId: currentCollection.id,
           })}
-        />
+        >
+          <button
+            onClick={e => {
+              // Validate our form
+              if (!formValues.recipientFirstName) {
+                e.stopPropagation();
+                setError({
+                  field: 'recipientFirstName',
+                  message: 'Please enter the first name of the giftee',
+                });
+                return;
+              }
+
+              if (!formValues.customerName) {
+                e.stopPropagation();
+                setError({
+                  field: 'customerName',
+                  message: 'Please enter your full name',
+                });
+                return;
+              }
+
+              if (!formValues.customerEmail) {
+                e.stopPropagation();
+                setError({
+                  field: 'customerEmail',
+                  message: 'Please enter your email address',
+                });
+                return;
+              }
+            }}
+          >
+            Buy Gift
+          </button>
+        </StripeCheckout>
         <p>Total: £3.00</p>
       </form>
       <style jsx>{`
@@ -191,6 +242,11 @@ const Checkout = ({ currentCollection, setCollection }) => {
           font-size: 14px;
           margin: 0 0 4px;
         }
+
+        .input--error {
+          background: rgba(240, 145, 150, 0.3);
+        }
+
         .select-wrapper {
           position: relative;
         }
@@ -216,6 +272,16 @@ const Checkout = ({ currentCollection, setCollection }) => {
           float: right;
           position: relative;
           top: 8px;
+        }
+
+        .error-message {
+          background: #f09196;
+          border-radius: 5px;
+          color: white;
+          font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          margin-bottom: 20px;
+          padding: 12px 14px;
         }
       `}</style>
       <style global jsx>{`
