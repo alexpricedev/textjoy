@@ -6,11 +6,13 @@
   "scripts": {
     "dev": "concurrently \"next\" \"netlify-lambda serve lambda-src\"",
     "build": "next build && next export && netlify-lambda build lambda-src",
+    "build-lambda": "netlify-lambda build lambda-src",
     "start": "next start"
   },
   "author": "Alex Price (@remotealex)",
   "license": "MIT",
   "dependencies": {
+    "moment": "^2.22.2",
     "netlify-identity-widget": "^1.4.14",
     "next": "^7.0.2",
     "react": "^16.7.0-alpha.2",

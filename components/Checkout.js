@@ -23,7 +23,6 @@ const onToken = metadata => token => {
     }),
   })
     .then(response => {
-      console.log('response', response);
       response.json().then(data => {
         console.log('response data', data);
       });
