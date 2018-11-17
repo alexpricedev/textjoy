@@ -30,4 +30,9 @@ const headers = {
   'Access-Control-Allow-Headers': 'Content-Type',
 };
 
-export { collections, timezones, statusCode, headers };
+const optinStatuses = {
+  accepted: 'accepted',
+  declined: 'declined',
+};
+
+export { optinStatuses, collections, timezones, statusCode, headers };

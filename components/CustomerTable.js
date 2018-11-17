@@ -44,7 +44,11 @@ const CustomerTable = () => {
                 ? moment(customer.metadata.lastSentDate).fromNow()
                 : 'Never'}
             </div>
-            <div className="cell" data-title="Opt-in Status">
+            <div
+              className="cell"
+              style={{ textTransform: 'capitalize' }}
+              data-title="Opt-in Status"
+            >
               {customer.metadata.optinStatus || 'Not sent'}
             </div>
             <div className="cell" data-title="Recipient First Name">
