@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 
-import { collections, timezones } from "../constants";
+import { collections, timezones } from '../constants';
 
 const Checkout = ({ currentCollection, setCollection }) => {
-  const [recipientTimezone, setRecipientTimezone] = useState("Etc/GMT");
-  const [customerEmail, setCustomerEmail] = useState("");
+  const [recipientTimezone, setRecipientTimezone] = useState('Etc/GMT');
+  const [customerEmail, setCustomerEmail] = useState('');
 
   return (
     <div className="wrapper">
@@ -35,17 +35,10 @@ const Checkout = ({ currentCollection, setCollection }) => {
           placeholder="Recipient's Phone Number"
           type="text"
         />
-        {/* <TimezonePicker
-          value={recipientTimezone}
-          onChange={tz => setRecipientTimezone(tz)}
-          inputProps={{
-            placeholder: "Recipient's Timezone",
-            name: "recipientTimezone"
-          }}
-        /> */}
+        <label htmlFor="recipientTimezone">Recipient's Timezone</label>
         <div className="select-wrapper">
-          <label>Recipient's Timezone</label>
           <select
+            id="recipientTimezone"
             name="recipientTimezone"
             onChange={e => {
               setRecipientTimezone(e.target.value);
@@ -86,7 +79,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
         }
 
         select,
-        input[type="text"] {
+        input[type='text'] {
           appearance: none;
           background: #e8ebed;
           border-radius: 5px;
@@ -106,7 +99,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
           border-color: #576366 transparent transparent transparent;
           border-style: solid;
           border-width: 9px 9px 0;
-          content: "";
+          content: '';
           display: block;
           position: absolute;
           right: 13px;
@@ -114,6 +107,12 @@ const Checkout = ({ currentCollection, setCollection }) => {
           transform: translateY(-50%);
           height: 0;
           width: 0;
+        }
+
+        label {
+          display: inline-block;
+          font-size: 14px;
+          margin: 0 0 4px;
         }
       `}</style>
     </div>

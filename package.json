@@ -1,18 +1,22 @@
 {
-    "name": "thoughtful-sms",
-    "version": "1.0.0",
-    "description": "Main website for ThoughtfulSMS",
-    "main": "index.js",
-    "scripts": {
-        "dev": "next",
-        "build": "next build",
-        "start": "next start"
-    },
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "next": "^7.0.2",
-        "react": "^16.7.0-alpha.2",
-        "react-dom": "^16.7.0-alpha.2"
-    }
+  "name": "thoughtful-sms",
+  "version": "1.0.0",
+  "description": "Main website for ThoughtfulSMS",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"next\" \"netlify-lambda serve lambda-src\"",
+    "build": "next build && next export && netlify-lambda build lambda-src",
+    "start": "next start"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "next": "^7.0.2",
+    "react": "^16.7.0-alpha.2",
+    "react-dom": "^16.7.0-alpha.2"
+  },
+  "devDependencies": {
+    "dotenv": "^6.1.0",
+    "netlify-lambda": "^1.0.3"
+  }
 }
