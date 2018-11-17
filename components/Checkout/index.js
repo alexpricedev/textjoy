@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import uuid from 'uuid/v4';
 import StripeCheckout from 'react-stripe-checkout';
+import Select from 'react-select';
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
@@ -8,6 +9,39 @@ import { collections, timezones } from '../../constants';
 
 const amount = 300; // £3.00
 const currency = 'GBP';
+const timezoneOptions = timezones.map(tz => ({
+  value: tz.name,
+  label: `${tz.label} (${tz.name})`,
+}));
+const collectionOptions = Object.entries(collections).map(
+  ([_, collection]) => ({
+    value: collection.id,
+    label: collection.name,
+  }),
+);
+
+const customStyles = {
+  container: provided => ({
+    ...provided,
+    color: '#576366',
+    fontFamily: 'Helvetica Neue, Helvetica, Arial, sans-serif',
+    fontSize: '14px',
+    marginBottom: '20px',
+  }),
+  valueContainer: provided => ({
+    ...provided,
+    padding: '5px 15px',
+  }),
+  control: provided => ({
+    ...provided,
+    border: 'none',
+  }),
+  menu: provided => ({
+    ...provided,
+    margin: '3px 0 0',
+  }),
+  indicatorSeparator: () => ({}),
+};
 
 /**
  * onToken make the request to our Stripe lambda endpoint
@@ -38,7 +72,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
   const [formValues, setFormValue] = useState({
     recipientFirstName: '',
     recipientPhoneNumber: '',
-    recipientTimezone: 'Etc/GMT',
+    recipientTimezone: '',
     customerName: '',
     customerEmail: '',
   });
@@ -54,24 +88,19 @@ const Checkout = ({ currentCollection, setCollection }) => {
         onSubmit={e => e.preventDefault()}
       >
         <label htmlFor="collectionId">Collection</label>
-        <div className="select-wrapper">
-          <select
-            id="collectionId"
-            name="collectionId"
-            onChange={e => {
-              setCollection(collections[e.target.value]);
-            }}
-            value={currentCollection.id}
-          >
-            {Object.entries(collections).map(([key, value]) => (
-              <option key={value.id} value={key}>
-                {value.name} Collection
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          id="collectionId"
+          onChange={({ value }) => setCollection(value)}
+          options={collectionOptions}
+          styles={customStyles}
+          value={{
+            value: currentCollection,
+            label: collections[currentCollection].name,
+          }}
+        />
         <label htmlFor="recipientFirstName">Recipient's First Name</label>
         <input
+          className="input"
           id="recipientFirstName"
           onChange={updateState}
           value={formValues.recipientFirstName}
@@ -87,21 +116,18 @@ const Checkout = ({ currentCollection, setCollection }) => {
           value={formValues.recipientPhoneNumber}
         />
         <label htmlFor="recipientTimezone">Recipient's Timezone</label>
-        <div className="select-wrapper">
-          <select
-            id="recipientTimezone"
-            onChange={updateState}
-            value={formValues.recipientTimezone}
-          >
-            {timezones.map(tz => (
-              <option key={tz.name} value={tz.name}>
-                {tz.label} - {tz.name}
-              </option>
-            ))}
-          </select>
-        </div>
+        <Select
+          id="recipientTimezone"
+          onChange={recipientTimezone => {
+            setFormValue({ ...formValues, recipientTimezone });
+          }}
+          options={timezoneOptions}
+          styles={customStyles}
+          value={formValues.recipientTimezone}
+        />
         <label htmlFor="customerName">Your Name</label>
         <input
+          className="input"
           id="customerName"
           onChange={updateState}
           value={formValues.customerName}
@@ -109,6 +135,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
         />
         <label htmlFor="customerEmail">Your Email Address</label>
         <input
+          className="input"
           id="customerEmail"
           onChange={updateState}
           value={formValues.customerEmail}
@@ -124,7 +151,11 @@ const Checkout = ({ currentCollection, setCollection }) => {
           locale="auto"
           name="ThoughtfulSMS"
           stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
-          token={onToken({ ...formValues, collectionId: currentCollection.id })}
+          token={onToken({
+            ...formValues,
+            recipientTimezone: formValues.recipientTimezone.value,
+            collectionId: currentCollection.id,
+          })}
         />
         <p>Total: £3.00</p>
       </form>
@@ -144,7 +175,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
         }
 
         form::before {
-          background: #505050;
+          background: #1495df;
           content: '';
           display: block;
           height: 3px;
@@ -189,8 +220,8 @@ const Checkout = ({ currentCollection, setCollection }) => {
       `}</style>
       <style global jsx>{`
         .sms-phone-input input,
-        input,
-        select {
+        .input,
+        .select {
           appearance: none;
           background: #ffffff;
           border-radius: 5px;

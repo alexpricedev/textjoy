@@ -4,7 +4,7 @@ import Checkout from '../components/Checkout';
 import { collections } from '../constants';
 
 const Index = () => {
-  const [currentCollection, setCollection] = useState(collections.love);
+  const [currentCollection, setCollection] = useState(collections.love.id);
 
   return (
     <Fragment>
