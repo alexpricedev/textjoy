@@ -1,8 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import netlifyIdentity from 'netlify-identity-widget';
 
-import Header from '../components/Header';
-import Reset from '../components/Reset';
 // import { collections } from '../constants';
 
 const Admin = () => {
@@ -28,7 +26,6 @@ const Admin = () => {
 
   return (
     <div id="admin-app">
-      <Header />
       <button
         type="button"
         onClick={e => {
@@ -43,21 +40,9 @@ const Admin = () => {
         {currentUser ? 'Log out' : 'Log in'}
       </button>
 
-      <Reset />
       <style global jsx>{`
-        * {
-          box-sizing: border-box;
-        }
-
-        body {
-          color: #505050;
+        #admin-app {
           font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-          line-height: 1.3;
-        }
-
-        .wrapper {
-          margin: 0 auto;
-          max-width: 1000px;
         }
       `}</style>
       <style jsx>{``}</style>
