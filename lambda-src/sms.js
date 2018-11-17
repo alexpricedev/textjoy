@@ -46,7 +46,7 @@ exports.handler = function(event, context, callback) {
       "Amazing! 🎉 You're awsome and we love you ❤ - ThoughtfulSMS",
     );
     optinStatus = optinStatuses.accepted;
-  } else if (theMessage.includes('stop') || theMessage.includes('no')) {
+  } else if (theMessage.includes('no')) {
     twiml.message(
       "Awwh 😥 We're sad to see you go. It's okay though, we still love you ❤ - ThoughtfulSMS",
     );
