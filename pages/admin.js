@@ -1,6 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import netlifyIdentity from 'netlify-identity-widget';
 
+import Button from '../components/Button';
 // import { collections } from '../constants';
 
 const Admin = () => {
@@ -26,19 +27,19 @@ const Admin = () => {
 
   return (
     <div id="admin-app">
-      <button
-        type="button"
-        onClick={e => {
-          e.preventDefault();
-          {
-            currentUser
-              ? netlifyIdentity.logout()
-              : netlifyIdentity.open('login');
-          }
-        }}
-      >
-        {currentUser ? 'Log out' : 'Log in'}
-      </button>
+      <center>
+        <Button
+          onClick={e => {
+            e.preventDefault();
+            {
+              currentUser
+                ? netlifyIdentity.logout()
+                : netlifyIdentity.open('login');
+            }
+          }}
+          text={currentUser ? 'Log out' : 'Log in'}
+        />
+      </center>
 
       <style global jsx>{`
         #admin-app {
