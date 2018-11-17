@@ -41,7 +41,7 @@ exports.handler = function(event, context, callback) {
   // Should we update the db?
   let optinStatus = null;
 
-  if (theMessage.includes('yes')) {
+  if (theMessage.includes('yes') || theMessage.includes('start')) {
     twiml.message(
       "Amazing! 🎉 You're awsome and we love you ❤ - ThoughtfulSMS",
     );
