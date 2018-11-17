@@ -2,9 +2,10 @@ import React, { useState } from 'react';
 import uuid from 'uuid/v4';
 import StripeCheckout from 'react-stripe-checkout';
 import Select from 'react-select';
-import PhoneInput from 'react-phone-number-input';
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
+import isEmailValid from '../../helpers/is-email-valid';
 import { collections, timezones } from '../../constants';
 
 const amount = 300; // £3.00
@@ -120,11 +121,18 @@ const Checkout = ({ currentCollection, setCollection }) => {
         />
         <label htmlFor="recipientPhoneNumber">Recipient's Phone Number</label>
         <PhoneInput
-          className="sms-phone-input"
-          id="recipientPhoneNumber"
-          onChange={recipientPhoneNumber =>
-            setFormValue({ ...formValues, recipientPhoneNumber })
+          className={
+            error.field === 'recipientPhoneNumber'
+              ? 'sms-phone-input sms-phone-input--error'
+              : 'sms-phone-input'
           }
+          id="recipientPhoneNumber"
+          onChange={recipientPhoneNumber => {
+            if ('recipientPhoneNumber' === error.field) {
+              setError(initalError);
+            }
+            setFormValue({ ...formValues, recipientPhoneNumber });
+          }}
           value={formValues.recipientPhoneNumber}
         />
         <label htmlFor="recipientTimezone">Recipient's Timezone</label>
@@ -175,6 +183,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
           })}
         >
           <button
+            className="checkout-button"
             onClick={e => {
               // Validate our form
               if (!formValues.recipientFirstName) {
@@ -182,6 +191,15 @@ const Checkout = ({ currentCollection, setCollection }) => {
                 setError({
                   field: 'recipientFirstName',
                   message: 'Please enter the first name of the giftee',
+                });
+                return;
+              }
+
+              if (!isValidPhoneNumber(formValues.recipientPhoneNumber)) {
+                e.stopPropagation();
+                setError({
+                  field: 'recipientPhoneNumber',
+                  message: "Please enter the giftee's phone number",
                 });
                 return;
               }
@@ -195,11 +213,14 @@ const Checkout = ({ currentCollection, setCollection }) => {
                 return;
               }
 
-              if (!formValues.customerEmail) {
+              if (
+                !formValues.customerEmail ||
+                !isEmailValid(formValues.customerEmail)
+              ) {
                 e.stopPropagation();
                 setError({
                   field: 'customerEmail',
-                  message: 'Please enter your email address',
+                  message: 'Please enter a valid email address',
                 });
                 return;
               }
@@ -267,9 +288,12 @@ const Checkout = ({ currentCollection, setCollection }) => {
 
         p {
           display: inline-block;
-          margin-left: 14px;
+          font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
           font-size: 16px;
+          opacity: 0.5;
+          font-weight: 700;
           float: right;
+          margin-left: 14px;
           position: relative;
           top: 8px;
         }
@@ -282,6 +306,23 @@ const Checkout = ({ currentCollection, setCollection }) => {
           font-size: 14px;
           margin-bottom: 20px;
           padding: 12px 14px;
+        }
+
+        .checkout-button {
+          background: #1495df;
+          border-radius: 5px;
+          border: none;
+          color: #ffffff;
+          cursor: pointer;
+          font-size: 14px;
+          font-weight: 700;
+          padding: 10px 18px;
+          transition: background 0.3s ease;
+        }
+
+        .checkout-button:hover,
+        .checkout-button:focus {
+          background: #0c79b7;
         }
       `}</style>
       <style global jsx>{`
@@ -312,6 +353,10 @@ const Checkout = ({ currentCollection, setCollection }) => {
 
         .sms-phone-input .react-phone-number-input__icon {
           border: none;
+        }
+
+        .sms-phone-input--error input {
+          background: rgba(240, 145, 150, 0.3);
         }
       `}</style>
     </div>
