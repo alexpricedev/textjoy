@@ -1,10 +1,10 @@
-import React, { Fragment, useState } from "react";
-import Head from "next/head";
+import React, { Fragment, useState } from 'react';
+import Head from 'next/head';
 
-import Checkout from "../components/Checkout";
-import Header from "../components/Header";
-import Reset from "../components/Reset";
-import { collections } from "../constants";
+import Checkout from '../components/Checkout';
+import Header from '../components/Header';
+import Reset from '../components/Reset';
+import { collections } from '../constants';
 
 const Index = () => {
   const [currentCollection, setCollection] = useState(collections.love);
@@ -40,7 +40,7 @@ const Index = () => {
 
         body {
           color: #505050;
-          font-family: "Courgette", cursive;
+          font-family: 'Courgette', cursive;
           line-height: 1.3;
         }
 

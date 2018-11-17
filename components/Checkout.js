@@ -8,10 +8,12 @@ const Checkout = ({ currentCollection, setCollection }) => {
 
   return (
     <div className="wrapper">
-      <h2>Make Someone Happy Gift a Collection</h2>
+      <h2>Make Someone Happy, Gift a Collection</h2>
       <form className="wrapper wrapper--small">
+        <label htmlFor="collectionId">Collection</label>
         <div className="select-wrapper">
           <select
+            id="collectionId"
             name="collectionId"
             onChange={e => {
               setCollection(collections[e.target.value]);
@@ -25,14 +27,12 @@ const Checkout = ({ currentCollection, setCollection }) => {
             ))}
           </select>
         </div>
+        <label htmlFor="recipientFirstName">Recipient's First Name</label>
+        <input id="recipientFirstName" name="recipientFirstName" type="text" />
+        <label htmlFor="recipientPhoneNumber">Recipient's Phone Number</label>
         <input
-          name="recipientFirstName"
-          placeholder="Recipient's First Name"
-          type="text"
-        />
-        <input
+          id="recipientPhoneNumber"
           name="recipientPhoneNumber"
-          placeholder="Recipient's Phone Number"
           type="text"
         />
         <label htmlFor="recipientTimezone">Recipient's Timezone</label>
@@ -52,14 +52,16 @@ const Checkout = ({ currentCollection, setCollection }) => {
             ))}
           </select>
         </div>
-        <input type="text" name="customerName" placeholder="Your Name" />
+        <label htmlFor="customerName">Your Name</label>
+        <input type="text" id="customerName" name="customerName" />
+        <label htmlFor="customerEmail">Your Email Address</label>
         <input
+          id="customerEmail"
           name="customerEmail"
           onChange={e => {
             e.preventDefault();
             setCustomerEmail(e.target.value);
           }}
-          placeholder="Your Email address"
           type="text"
           value={customerEmail}
         />
@@ -71,22 +73,44 @@ const Checkout = ({ currentCollection, setCollection }) => {
           text-align: center;
         }
 
-        input,
-        select {
-          display: block;
-          margin-bottom: 20px;
-          width: 100%;
+        form {
+          background: rgba(232, 235, 237, 0.8);
+          box-shadow: 0px 1px 1px 0px rgba(80, 80, 80, 0.8);
+          margin-bottom: 40px;
+          padding: 20px;
+          position: relative;
         }
 
-        select,
-        input[type='text'] {
+        form::before {
+          background: #505050;
+          content: '';
+          display: block;
+          height: 3px;
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+
+        label {
+          display: inline-block;
+          font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          margin: 0 0 4px;
+        }
+
+        input,
+        select {
           appearance: none;
-          background: #e8ebed;
+          background: #ffffff;
           border-radius: 5px;
           border: none;
           color: #576366;
+          display: block;
+          font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
           font-size: 14px;
           height: 35px;
+          margin-bottom: 20px;
           padding: 5px 15px;
           width: 100%;
         }
@@ -98,7 +122,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
         .select-wrapper::after {
           border-color: #576366 transparent transparent transparent;
           border-style: solid;
-          border-width: 9px 9px 0;
+          border-width: 7px 7px 0;
           content: '';
           display: block;
           position: absolute;
@@ -107,12 +131,6 @@ const Checkout = ({ currentCollection, setCollection }) => {
           transform: translateY(-50%);
           height: 0;
           width: 0;
-        }
-
-        label {
-          display: inline-block;
-          font-size: 14px;
-          margin: 0 0 4px;
         }
       `}</style>
     </div>
