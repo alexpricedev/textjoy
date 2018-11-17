@@ -71,7 +71,7 @@ const onToken = metadata => token => {
 
 const initalError = { field: '', message: '' };
 
-const Checkout = ({ currentCollection, setCollection }) => {
+const Checkout = ({ currentCollectionId, setCollection }) => {
   const [error, setError] = useState(initalError);
   const [formValues, setFormValue] = useState({
     recipientFirstName: '',
@@ -103,8 +103,8 @@ const Checkout = ({ currentCollection, setCollection }) => {
           options={collectionOptions}
           styles={customStyles}
           value={{
-            value: currentCollection,
-            label: collections[currentCollection].name,
+            value: currentCollectionId,
+            label: collections[currentCollectionId].name,
           }}
         />
         <label htmlFor="recipientFirstName">Recipient's First Name</label>
@@ -179,7 +179,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
           token={onToken({
             ...formValues,
             recipientTimezone: formValues.recipientTimezone.value,
-            collectionId: currentCollection.id,
+            collectionId: currentCollectionId,
           })}
         >
           <button
@@ -235,6 +235,7 @@ const Checkout = ({ currentCollection, setCollection }) => {
         h2 {
           font-size: 30px;
           margin: 0 0 30px;
+          padding: 0 20px;
           text-align: center;
         }
 
@@ -244,6 +245,13 @@ const Checkout = ({ currentCollection, setCollection }) => {
           margin-bottom: 40px;
           padding: 20px;
           position: relative;
+        }
+
+        @media only screen and (max-width: 440px) {
+          form {
+            margin-left: 20px;
+            margin-right: 20px;
+          }
         }
 
         form::before {

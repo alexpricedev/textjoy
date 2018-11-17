@@ -1,7 +1,7 @@
-import Logo from "./Logo";
+import Logo from './Logo';
 
 const Header = () => (
-  <div style={{ maxWidth: "400px", margin: "40px auto" }}>
+  <div style={{ maxWidth: '400px', margin: '40px auto', padding: '0 20px' }}>
     <Logo />
   </div>
 );
