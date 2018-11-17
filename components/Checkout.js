@@ -115,11 +115,12 @@ const Checkout = ({ currentCollection, setCollection }) => {
           amount={amount}
           currency={currency}
           description="Weekly thoughtful messages via SMS"
+          email={formValues.customerEmail}
           image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          label="Buy Gift"
           locale="auto"
           name="ThoughtfulSMS"
           stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
-          label="Buy Gift"
           token={onToken({ ...formValues, collectionId: currentCollection.id })}
         />
         <p>Total: £3.00</p>
