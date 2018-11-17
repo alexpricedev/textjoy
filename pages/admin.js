@@ -2,7 +2,7 @@ import React, { Fragment, useEffect, useState } from 'react';
 import netlifyIdentity from 'netlify-identity-widget';
 
 import Button from '../components/Button';
-// import { collections } from '../constants';
+import CustomerTable from '../components/CustomerTable';
 
 const Admin = () => {
   const [currentUser, setUser] = useState(null);
@@ -41,12 +41,13 @@ const Admin = () => {
         />
       </center>
 
+      {currentUser && <CustomerTable />}
+
       <style global jsx>{`
         #admin-app {
           font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
         }
       `}</style>
-      <style jsx>{``}</style>
     </div>
   );
 };
