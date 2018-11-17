@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import uuid from 'uuid/v4';
 import StripeCheckout from 'react-stripe-checkout';
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
-import { collections, timezones } from '../constants';
+import { collections, timezones } from '../../constants';
 
 const amount = 300; // £3.00
 const currency = 'GBP';
@@ -76,11 +78,13 @@ const Checkout = ({ currentCollection, setCollection }) => {
           type="text"
         />
         <label htmlFor="recipientPhoneNumber">Recipient's Phone Number</label>
-        <input
+        <PhoneInput
+          className="sms-phone-input"
           id="recipientPhoneNumber"
-          onChange={updateState}
+          onChange={recipientPhoneNumber =>
+            setFormValue({ ...formValues, recipientPhoneNumber })
+          }
           value={formValues.recipientPhoneNumber}
-          type="tel"
         />
         <label htmlFor="recipientTimezone">Recipient's Timezone</label>
         <div className="select-wrapper">
@@ -156,23 +160,6 @@ const Checkout = ({ currentCollection, setCollection }) => {
           font-size: 14px;
           margin: 0 0 4px;
         }
-
-        input,
-        select {
-          appearance: none;
-          background: #ffffff;
-          border-radius: 5px;
-          border: none;
-          color: #576366;
-          display: block;
-          font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-          font-size: 14px;
-          height: 35px;
-          margin-bottom: 20px;
-          padding: 5px 15px;
-          width: 100%;
-        }
-
         .select-wrapper {
           position: relative;
         }
@@ -198,6 +185,36 @@ const Checkout = ({ currentCollection, setCollection }) => {
           float: right;
           position: relative;
           top: 8px;
+        }
+      `}</style>
+      <style global jsx>{`
+        .sms-phone-input input,
+        input,
+        select {
+          appearance: none;
+          background: #ffffff;
+          border-radius: 5px;
+          border: none;
+          color: #576366;
+          display: block;
+          font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+          font-size: 14px;
+          height: 35px;
+          margin-bottom: 20px;
+          padding: 5px 15px;
+          width: 100%;
+        }
+
+        .sms-phone-input {
+          margin-bottom: 20px;
+        }
+
+        .sms-phone-input input {
+          margin-bottom: 0;
+        }
+
+        .sms-phone-input .react-phone-number-input__icon {
+          border: none;
         }
       `}</style>
     </div>
