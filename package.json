@@ -8,15 +8,20 @@
     "build": "next build && next export && netlify-lambda build lambda-src",
     "start": "next start"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Alex Price (@remotealex)",
+  "license": "MIT",
   "dependencies": {
     "next": "^7.0.2",
     "react": "^16.7.0-alpha.2",
-    "react-dom": "^16.7.0-alpha.2"
+    "react-dom": "^16.7.0-alpha.2",
+    "react-stripe-checkout": "^2.6.3",
+    "stripe": "^6.15.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "concurrently": "^4.0.1",
     "dotenv": "^6.1.0",
+    "dotenv-webpack": "^1.5.7",
     "netlify-lambda": "^1.0.3"
   }
 }

@@ -1,15 +1,57 @@
 import React, { useState } from 'react';
+import uuid from 'uuid/v4';
+import StripeCheckout from 'react-stripe-checkout';
 
 import { collections, timezones } from '../constants';
 
+const amount = 300; // £3.00
+const currency = 'GBP';
+
+/**
+ * onToken make the request to our Stripe lambda endpoint
+ * and create the purchase
+ */
+const onToken = metadata => token => {
+  fetch(`${process.env.LAMBDA_ENDPOINT}/purchase`, {
+    method: 'POST',
+    body: JSON.stringify({
+      amount,
+      currency,
+      idempotency_key: uuid(),
+      token,
+      metadata,
+    }),
+  })
+    .then(response => {
+      console.log('response', response);
+      response.json().then(data => {
+        console.log('response data', data);
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 const Checkout = ({ currentCollection, setCollection }) => {
-  const [recipientTimezone, setRecipientTimezone] = useState('Etc/GMT');
-  const [customerEmail, setCustomerEmail] = useState('');
+  const [formValues, setFormValue] = useState({
+    recipientFirstName: '',
+    recipientPhoneNumber: '',
+    recipientTimezone: 'Etc/GMT',
+    customerName: '',
+    customerEmail: '',
+  });
+
+  const updateState = e =>
+    setFormValue({ ...formValues, [e.target.id]: e.target.value });
 
   return (
     <div className="wrapper">
       <h2>Make Someone Happy, Gift a Collection</h2>
-      <form className="wrapper wrapper--small">
+      <form
+        className="wrapper wrapper--small"
+        onSubmit={e => e.preventDefault()}
+      >
         <label htmlFor="collectionId">Collection</label>
         <div className="select-wrapper">
           <select
@@ -28,22 +70,25 @@ const Checkout = ({ currentCollection, setCollection }) => {
           </select>
         </div>
         <label htmlFor="recipientFirstName">Recipient's First Name</label>
-        <input id="recipientFirstName" name="recipientFirstName" type="text" />
+        <input
+          id="recipientFirstName"
+          onChange={updateState}
+          value={formValues.recipientFirstName}
+          type="text"
+        />
         <label htmlFor="recipientPhoneNumber">Recipient's Phone Number</label>
         <input
           id="recipientPhoneNumber"
-          name="recipientPhoneNumber"
-          type="text"
+          onChange={updateState}
+          value={formValues.recipientPhoneNumber}
+          type="tel"
         />
         <label htmlFor="recipientTimezone">Recipient's Timezone</label>
         <div className="select-wrapper">
           <select
             id="recipientTimezone"
-            name="recipientTimezone"
-            onChange={e => {
-              setRecipientTimezone(e.target.value);
-            }}
-            value={recipientTimezone}
+            onChange={updateState}
+            value={formValues.recipientTimezone}
           >
             {timezones.map(tz => (
               <option key={tz.name} value={tz.name}>
@@ -53,18 +98,31 @@ const Checkout = ({ currentCollection, setCollection }) => {
           </select>
         </div>
         <label htmlFor="customerName">Your Name</label>
-        <input type="text" id="customerName" name="customerName" />
+        <input
+          id="customerName"
+          onChange={updateState}
+          value={formValues.customerName}
+          type="tel"
+        />
         <label htmlFor="customerEmail">Your Email Address</label>
         <input
           id="customerEmail"
-          name="customerEmail"
-          onChange={e => {
-            e.preventDefault();
-            setCustomerEmail(e.target.value);
-          }}
-          type="text"
-          value={customerEmail}
+          onChange={updateState}
+          value={formValues.customerEmail}
+          type="email"
         />
+        <StripeCheckout
+          amount={amount}
+          currency={currency}
+          description="Weekly thoughtful messages via SMS"
+          image="https://stripe.com/img/documentation/checkout/marketplace.png"
+          locale="auto"
+          name="ThoughtfulSMS"
+          stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
+          label="Buy Gift"
+          token={onToken({ ...formValues, collectionId: currentCollection.id })}
+        />
+        <p>Total: £3.00</p>
       </form>
       <style jsx>{`
         h2 {
@@ -131,6 +189,15 @@ const Checkout = ({ currentCollection, setCollection }) => {
           transform: translateY(-50%);
           height: 0;
           width: 0;
+        }
+
+        p {
+          display: inline-block;
+          margin-left: 14px;
+          font-size: 16px;
+          float: right;
+          position: relative;
+          top: 8px;
         }
       `}</style>
     </div>
