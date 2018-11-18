@@ -20,7 +20,7 @@ const collectionOptions = Object.entries(collections).map(
   }),
 );
 
-const customStyles = {
+const customStyles = isError => ({
   container: provided => ({
     ...provided,
     color: '#576366',
@@ -34,7 +34,7 @@ const customStyles = {
   }),
   control: provided => ({
     ...provided,
-    background: '#f0f0f0',
+    background: isError ? 'rgba(240, 145, 150, 0.3)' : '#f0f0f0',
     border: 'none',
   }),
   menu: provided => ({
@@ -42,7 +42,7 @@ const customStyles = {
     margin: '3px 0 0',
   }),
   indicatorSeparator: () => ({}),
-};
+});
 
 /**
  * onToken make the request to our Stripe lambda endpoint
@@ -71,12 +71,21 @@ const onToken = metadata => token => {
 
 const initalError = { field: '', message: '' };
 
+const tzGuess = timezones.find(
+  tz => tz.name === Intl.DateTimeFormat().resolvedOptions().timeZone,
+);
+
 const Checkout = ({ currentCollectionId, setCollection }) => {
   const [error, setError] = useState(initalError);
   const [formValues, setFormValue] = useState({
     recipientFirstName: '',
     recipientPhoneNumber: '',
-    recipientTimezone: '',
+    recipientTimezone: tzGuess
+      ? {
+          value: tzGuess.name,
+          label: `${tzGuess.label} (${tzGuess.name})`,
+        }
+      : { value: '', label: '' },
     customerName: '',
   });
 
@@ -87,6 +96,8 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
       setError(initalError);
     }
   };
+
+  const collection = collections[currentCollectionId];
 
   return (
     <div className="wrapper">
@@ -101,10 +112,10 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
             id="collectionId"
             onChange={({ value }) => setCollection(value)}
             options={collectionOptions}
-            styles={customStyles}
+            styles={customStyles()}
             value={{
               value: currentCollectionId,
-              label: collections[currentCollectionId].name,
+              label: collection.name,
             }}
           />
           <label htmlFor="recipientFirstName">
@@ -144,7 +155,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
               setFormValue({ ...formValues, recipientTimezone });
             }}
             options={timezoneOptions}
-            styles={customStyles}
+            styles={customStyles(error.field === 'recipientTimezone')}
             value={formValues.recipientTimezone}
           />
           <label htmlFor="customerName">Enter your name</label>
@@ -182,7 +193,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
                   e.stopPropagation();
                   setError({
                     field: 'recipientFirstName',
-                    message: 'Please enter the first name of the giftee',
+                    message: 'Please enter your friends first name',
                   });
                   return;
                 }
@@ -191,7 +202,16 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
                   e.stopPropagation();
                   setError({
                     field: 'recipientPhoneNumber',
-                    message: "Please enter the giftee's phone number",
+                    message: 'Please enter your friends phone number',
+                  });
+                  return;
+                }
+
+                if (!formValues.recipientTimezone.value) {
+                  e.stopPropagation();
+                  setError({
+                    field: 'recipientTimezone',
+                    message: 'Please select your friends timezone',
                   });
                   return;
                 }
@@ -211,29 +231,12 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           </StripeCheckout>
         </form>
         <div className="col">
-          <h3>
-            Perfect for your loved one, spouse or partner. Send loving and
-            personal messages to someone you absolutely adore
-          </h3>
+          <h3>{collection.intro}</h3>
           <div className="message">
-            Dearest{' '}
-            {formValues.recipientFirstName ? (
-              <strong>{formValues.recipientFirstName}</strong>
-            ) : (
-              'Chloe'
-            )}
-            , I want you to know that I think about you often 💕 I'm your #1 fan
-            and cheering you on. Go get 'em! 😍 - ThoughtfulSMS
+            {collection.messages[0](formValues.recipientFirstName || 'Chloe')}
           </div>
           <div className="message message--two">
-            If there were more people like you in the world, it would be a
-            better place 🌏 It's true{' '}
-            {formValues.recipientFirstName ? (
-              <strong>{formValues.recipientFirstName}</strong>
-            ) : (
-              'James'
-            )}
-            ! I'm glad we are on the same team 😻 - ThoughtfulSMS
+            {collection.messages[1](formValues.recipientFirstName || 'James')}
           </div>
         </div>
       </div>
@@ -306,13 +309,13 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
         }
 
         .message--two {
-          animation-delay: 4.5s;
+          animation-delay: 3s;
         }
 
         .message::after {
           border-color: transparent #ffffff transparent transparent;
           border-style: solid;
-          border-width: 0 50px 50px 0;
+          border-width: 0 32px 32px 0;
           bottom: -17px;
           content: '';
           display: inline-block;
@@ -373,10 +376,11 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
         .error-message {
           background: #f09196;
           border-radius: 5px;
+          text-align: center;
           color: white;
           font-size: 14px;
           margin-bottom: 20px;
-          padding: 12px 14px;
+          padding: 10px 12px;
         }
 
         .checkout-button {
