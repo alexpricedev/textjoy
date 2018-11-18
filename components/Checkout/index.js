@@ -110,6 +110,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
       </h2>
       <div className="cols">
         <form onSubmit={e => e.preventDefault()}>
+          <h3 className="form-title">Make a Friend Smile Today</h3>
           {status === 'succeeded' ? (
             <div className="form-success">
               <div>
@@ -258,6 +259,19 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           </StripeCheckout>
         </form>
         <div className="col">
+          <div className="mobile-collection-select">
+            <label htmlFor="mobileCollectionId">View collections</label>
+            <Select
+              id="mobileCollectionId"
+              onChange={({ value }) => setCollection(value)}
+              options={collectionOptions}
+              styles={customStyles()}
+              value={{
+                value: currentCollectionId,
+                label: collection.name,
+              }}
+            />
+          </div>
           <h3>{collection.intro}</h3>
           <div className="message">
             {collection.messages[0](formValues.recipientFirstName || 'Chloe')}
@@ -276,6 +290,17 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
         .col {
           flex: 1 1 50%;
           padding: 10px 20px 20px;
+        }
+
+        @media only screen and (max-width: 834px) {
+          .cols {
+            flex-wrap: wrap;
+          }
+
+          .col {
+            order: -1;
+            flex-basis: 100%;
+          }
         }
 
         h2,
@@ -310,6 +335,29 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           width: 28px;
         }
 
+        @media only screen and (max-width: 834px) {
+          h2 {
+            font-size: 30px;
+            margin-bottom: 30px;
+          }
+
+          h3 {
+            text-align: center;
+            margin: 0 0 40px;
+          }
+
+          h3::after {
+            display: none;
+          }
+        }
+
+        @media only screen and (max-width: 400px) {
+          h2 {
+            font-size: 27px;
+            margin-bottom: 20px;
+          }
+        }
+
         @keyframes fadeInUp {
           0% {
             opacity: 0;
@@ -319,6 +367,17 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
             opacity: 1;
             transform: translateY(0);
           }
+        }
+
+        .mobile-collection-select {
+          display: none;
+          padding-bottom: 20px;
+        }
+
+        .mobile-collection-select label {
+          color: #fff;
+          display: block;
+          text-align: center;
         }
 
         .message {
@@ -350,6 +409,18 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           position: absolute;
           right: 0;
           width: 0;
+        }
+
+        @media only screen and (max-width: 834px) {
+          .mobile-collection-select {
+            display: block;
+          }
+
+          .message {
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+          }
         }
 
         form {
@@ -391,10 +462,38 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           margin-bottom: 20px;
         }
 
+        .form-title {
+          color: #505050;
+          display: none;
+          font-weight: 700;
+          margin-top: 20px;
+          margin-bottom: 30px;
+          padding: 0;
+        }
+
+        @media only screen and (max-width: 834px) {
+          form {
+            margin-left: 40px;
+            margin-right: 40px;
+          }
+
+          .form-title {
+            display: block;
+          }
+        }
+
         @media only screen and (max-width: 440px) {
           form {
             margin-left: 20px;
             margin-right: 20px;
+          }
+        }
+
+        @media only screen and (max-width: 400px) {
+          .form-title {
+            font-size: 18px;
+            margin-top: 5px;
+            margin-bottom: 20px;
           }
         }
 
@@ -500,6 +599,11 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
 
         .sms-phone-input--error input {
           background: rgba(240, 145, 150, 0.3);
+        }
+
+        #mobileCollectionId {
+          margin: 0 auto;
+          max-width: 300px;
         }
       `}</style>
     </div>
