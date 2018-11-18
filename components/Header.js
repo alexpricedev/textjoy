@@ -1,8 +1,15 @@
 import Logo from './Logo';
 
 const Header = () => (
-  <div style={{ maxWidth: '400px', margin: '40px auto', padding: '0 20px' }}>
+  <div className="logo">
     <Logo />
+    <style jsx>{`
+      .logo {
+        max-width: 240px;
+        margin: 0 auto;
+        padding: 30px 20px;
+      }
+    `}</style>
   </div>
 );
 

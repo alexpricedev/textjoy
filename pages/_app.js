@@ -44,18 +44,20 @@ class ThoughtfulSMS extends App {
           }
 
           body {
+            background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
             color: #505050;
-            font-family: 'Courgette', cursive;
+            font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             line-height: 1.3;
+            min-height: 100vh;
           }
 
           .wrapper {
             margin: 0 auto;
-            max-width: 700px;
+            max-width: 800px;
           }
 
-          .wrapper--small {
-            max-width: 400px;
+          strong {
+            font-weight: 700;
           }
         `}</style>
       </Container>

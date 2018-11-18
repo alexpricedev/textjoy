@@ -8,11 +8,6 @@ const Index = () => {
 
   return (
     <Fragment>
-      <div className="leader">
-        <h1 className="wrapper">
-          Deliver Weekly Thoughtful Messages To Your Friends &amp; Loved Ones
-        </h1>
-      </div>
       <Checkout
         currentCollectionId={currentCollectionId}
         setCollection={setCollection}
@@ -27,6 +22,7 @@ const Index = () => {
 
         .leader h1 {
           color: #ffffff;
+          font-weight: bold;
           font-size: 42px;
         }
       `}</style>
