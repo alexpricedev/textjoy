@@ -11,6 +11,7 @@ import { statusCode, headers } from '../constants';
 exports.handler = function(event, context, callback) {
   // We only care to do anything if this is our POST request
   if (event.httpMethod !== 'POST' || !event.body) {
+    console.log('GET request made...');
     callback(null, {
       statusCode,
       headers,
@@ -54,6 +55,8 @@ exports.handler = function(event, context, callback) {
         throw 500;
       }
 
+      console.log('Created charge:', charge);
+
       callback(null, {
         statusCode,
         headers,
@@ -63,14 +66,16 @@ exports.handler = function(event, context, callback) {
       return charge;
     })
     .then(({ metadata }) => {
-      twilio.messages.create({
+      return twilio.messages.create({
         body: `Woohoo! ${metadata.customerName ||
-          'Someone'} has just bought you a ThoughtfulSMS gift! 🎁 Every week we'll send you a lovely text message 💌 Simply reply YES to accept 👍 Learn more at thoughtfulsms.com x`,
+          'Someone'} has just bought you a ThoughtfulSMS gift! 🎁 Every week we'll send you a lovely text message 💌 Simply reply YES to accept 👍 Learn more at thoughtfulsms.com`,
         to: metadata.recipientPhoneNumber, // send to this number
         from: process.env.TWILIO_PHONE_NUMBER, // from our Twilio number
       });
     })
+    .then(message => console.log('Message sent: ', message))
     .catch(err => {
+      console.log('Catch || Error sending welcome SMS:', err);
       callback(err, {
         statusCode,
         headers,
