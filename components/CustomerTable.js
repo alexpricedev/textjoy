@@ -53,7 +53,7 @@ const CustomerTable = () => {
                 style={{ textTransform: 'capitalize' }}
                 data-title="Opt-in Status"
               >
-                {customer.metadata.optinStatus || 'Not sent'}
+                {customer.metadata.optinStatus || 'Pending'}
               </div>
               <div className="cell" data-title="Recipient First Name">
                 {customer.metadata.recipientFirstName}
@@ -73,7 +73,7 @@ const CustomerTable = () => {
               </div>
               <div className="cell" data-title="Customer">
                 {customer.metadata.customerName || 'No name'} (
-                {customer.metadata.customerEmail || 'No email address'})
+                {customer.metadata.customerEmail || ''})
               </div>
               <div className="cell" data-title="Actions">
                 {customer.metadata.optinStatus === optinStatuses.accepted && (

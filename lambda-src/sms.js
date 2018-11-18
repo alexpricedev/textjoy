@@ -58,42 +58,25 @@ exports.handler = function(event, context, callback) {
   }
 
   if (optinStatus) {
-    stripe.charges
-      .list()
-      .autoPagingEach(charge => {
-        // If the charge has the same phone number set all the optinStatuses
-        if (charge.metadata.recipientPhoneNumber === From) {
-          stripe.charges.update(charge.id, {
-            metadata: {
-              ...charge.metadata,
-              optinStatus,
-            },
-          });
-        }
-      })
-      .catch(err => {
-        twiml.message(
-          "Uhh ohh! 🔥 We've messed up and something has broken 💥 Please try again - ThoughtfulSMS",
-        );
-      })
-      .finally(() => {
-        callback(null, {
-          statusCode,
-          headers: {
-            ...headers,
-            'Content-Type': 'text/xml',
+    stripe.charges.list().autoPagingEach(charge => {
+      // If the charge has the same phone number set all the optinStatuses
+      if (charge.metadata.recipientPhoneNumber === From) {
+        stripe.charges.update(charge.id, {
+          metadata: {
+            ...charge.metadata,
+            optinStatus,
           },
-          body: twiml.toString(),
         });
-      });
-  } else {
-    callback(null, {
-      statusCode,
-      headers: {
-        ...headers,
-        'Content-Type': 'text/xml',
-      },
-      body: twiml.toString(),
+      }
     });
   }
+
+  callback(null, {
+    statusCode,
+    headers: {
+      ...headers,
+      'Content-Type': 'text/xml',
+    },
+    body: twiml.toString(),
+  });
 };
