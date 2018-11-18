@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 
 import Checkout from '../components/Checkout';
+import FAQ from '../components/FAQ';
 import { collections } from '../constants';
 
 const Index = () => {
@@ -12,6 +13,9 @@ const Index = () => {
         currentCollectionId={currentCollectionId}
         setCollection={setCollection}
       />
+      <div className="wrapper">
+        <FAQ />
+      </div>
       <style jsx>{`
         .leader {
           background: #909bce;

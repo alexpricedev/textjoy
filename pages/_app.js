@@ -3,6 +3,7 @@ import Head from 'next/head';
 import App, { Container } from 'next/app';
 
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import Reset from '../components/Reset';
 
 class ThoughtfulSMS extends App {
@@ -43,6 +44,7 @@ class ThoughtfulSMS extends App {
         </Head>
         <Header />
         <Component {...pageProps} />
+        <Footer />
         <Reset />
         <style global jsx>{`
           * {
@@ -55,6 +57,7 @@ class ThoughtfulSMS extends App {
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             line-height: 1.3;
             min-height: 100vh;
+            position: relative;
           }
 
           .wrapper {
