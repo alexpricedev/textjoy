@@ -23,17 +23,23 @@ class ThoughtfulSMS extends App {
       <Container>
         <Head>
           <title>
-            ThoughtfulSMS - Weekly Thoughtful Messages Delivered to Your Loved
-            Ones
+            ThoughtfulSMS - Lovely Messages Delivered to Your Loved Ones Each
+            Week
           </title>
+          <meta
+            name="description"
+            content="ThoughtfulSMS is a unique gift where you can buy a friend a year of delightful SMS messages sent directly to them, once per week."
+          />
           <meta
             name="viewport"
             content="initial-scale=1.0, width=device-width"
           />
           <link
-            href="https://fonts.googleapis.com/css?family=Courgette"
-            rel="stylesheet"
+            rel="shortcut icon"
+            href="/static/favicon.ico"
+            type="image/x-icon"
           />
+          <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
         </Head>
         <Header />
         <Component {...pageProps} />

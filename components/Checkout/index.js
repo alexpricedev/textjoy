@@ -48,7 +48,7 @@ const customStyles = isError => ({
  * onToken make the request to our Stripe lambda endpoint
  * and create the purchase
  */
-const onToken = metadata => token => {
+const onToken = (metadata, setFinish) => token => {
   fetch(`${process.env.LAMBDA_ENDPOINT}/purchase`, {
     method: 'POST',
     body: JSON.stringify({
@@ -60,34 +60,37 @@ const onToken = metadata => token => {
     }),
   })
     .then(response => {
-      response.json().then(data => {
-        console.log('response data', data);
+      response.json().then(({ status }) => {
+        setFinish(status);
       });
     })
     .catch(err => {
+      setFinish('failed');
       console.log(err);
     });
 };
-
-const initalError = { field: '', message: '' };
 
 const tzGuess = timezones.find(
   tz => tz.name === Intl.DateTimeFormat().resolvedOptions().timeZone,
 );
 
+const initalError = { field: '', message: '' };
+const intialFormValues = {
+  recipientFirstName: '',
+  recipientPhoneNumber: '',
+  recipientTimezone: tzGuess
+    ? {
+        value: tzGuess.name,
+        label: `${tzGuess.label} (${tzGuess.name})`,
+      }
+    : { value: '', label: '' },
+  customerName: '',
+};
+
 const Checkout = ({ currentCollectionId, setCollection }) => {
+  const [status, setStatus] = useState(null); // checkout complete status
   const [error, setError] = useState(initalError);
-  const [formValues, setFormValue] = useState({
-    recipientFirstName: '',
-    recipientPhoneNumber: '',
-    recipientTimezone: tzGuess
-      ? {
-          value: tzGuess.name,
-          label: `${tzGuess.label} (${tzGuess.name})`,
-        }
-      : { value: '', label: '' },
-    customerName: '',
-  });
+  const [formValues, setFormValue] = useState(intialFormValues);
 
   const updateState = e => {
     const field = e.target.id;
@@ -107,6 +110,22 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
       </h2>
       <div className="cols">
         <form onSubmit={e => e.preventDefault()}>
+          {status === 'succeeded' ? (
+            <div className="form-success">
+              <div>
+                <h4>Purchase complete! Thank-you 🙏</h4>
+                <button
+                  className="done-button"
+                  onClick={() => {
+                    setStatus(null);
+                    setFormValue(intialFormValues);
+                  }}
+                >
+                  Finish
+                </button>
+              </div>
+            </div>
+          ) : null}
           <label htmlFor="collectionId">Select a collection</label>
           <Select
             id="collectionId"
@@ -171,6 +190,11 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           {error.message && (
             <div className="error-message">{error.message}</div>
           )}
+          {status === 'failed' && (
+            <div className="error-message">
+              Something went wrong... we're really sorry
+            </div>
+          )}
           <StripeCheckout
             amount={amount}
             currency={currency}
@@ -179,11 +203,14 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
             locale="auto"
             name="ThoughtfulSMS"
             stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
-            token={onToken({
-              ...formValues,
-              recipientTimezone: formValues.recipientTimezone.value,
-              collectionId: currentCollectionId,
-            })}
+            token={onToken(
+              {
+                ...formValues,
+                recipientTimezone: formValues.recipientTimezone.value,
+                collectionId: currentCollectionId,
+              },
+              setStatus,
+            )}
           >
             <button
               className="checkout-button"
@@ -334,6 +361,36 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           position: relative;
         }
 
+        @keyframes fadeIn {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+
+        .form-success {
+          animation-duration: 1.2s;
+          animation-fill-mode: both;
+          align-items: center;
+          animation-name: fadeIn;
+          background: #ffffff;
+          bottom: 0;
+          display: flex;
+          justify-content: center;
+          left: 0;
+          position: absolute;
+          right: 0;
+          top: 0;
+          z-index: 99;
+        }
+
+        .form-success h4 {
+          font-size: 17px;
+          margin-bottom: 20px;
+        }
+
         @media only screen and (max-width: 440px) {
           form {
             margin-left: 20px;
@@ -383,6 +440,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           padding: 10px 12px;
         }
 
+        .done-button,
         .checkout-button {
           background: #5faad7;
           border-radius: 5px;
@@ -398,9 +456,16 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           width: 100%;
         }
 
+        .done-button:hover,
+        .done-button:focus,
         .checkout-button:hover,
         .checkout-button:focus {
           background: #0c79b7;
+        }
+
+        .done-button {
+          margin: 0 auto;
+          width: auto;
         }
       `}</style>
       <style global jsx>{`
