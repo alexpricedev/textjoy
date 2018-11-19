@@ -96,6 +96,23 @@ const CustomerTable = () => {
                     text="Send"
                   />
                 )}
+                {!customer.metadata.optinStatus && (
+                  <Button
+                    onClick={e => {
+                      e.preventDefault();
+                      const message = `Woohoo! ${customer.metadata
+                        .customerName ||
+                        'Someone'} has just bought you a ThoughtfulSMS gift! 🎁 Every week we'll send you a lovely text message 💌 Simply reply YES to accept 👍 Learn more at thoughtfulsms.com`;
+                      send({
+                        message,
+                        metadata: customer.metadata,
+                        chargeId: customer.id,
+                      });
+                    }}
+                    small
+                    text="Re-send Opt-in"
+                  />
+                )}
               </div>
             </div>
           );
