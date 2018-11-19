@@ -5,9 +5,9 @@ import Select from 'react-select';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
 
-import { collections, timezones } from '../../constants';
+import { collections, timezones } from '../constants';
 
-const amount = 300; // £3.00
+const amount = 500; // £5.00
 const currency = 'GBP';
 const timezoneOptions = timezones.map(tz => ({
   value: tz.name,
@@ -62,6 +62,9 @@ const onToken = (metadata, setFinish) => token => {
     .then(response => {
       response.json().then(({ status }) => {
         setFinish(status);
+        if (status === 'succeeded' && window && window.fbq) {
+          window.fbq('track', 'Purchase', { value: amount, currency });
+        }
       });
     })
     .catch(err => {
@@ -254,7 +257,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
                 }
               }}
             >
-              Buy Now - Just £3 For a Year
+              Buy Now - Just £5 For a Year
             </button>
           </StripeCheckout>
         </form>

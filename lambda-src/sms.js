@@ -36,7 +36,7 @@ exports.handler = function(event, context, callback) {
   const { Body, From } = parseQuery(event.body);
 
   const twiml = new MessagingResponse();
-  const theMessage = Body.toLowerCase();
+  const theMessage = Body.toLowerCase().trim();
 
   // Should we update the db?
   let optinStatus = null;
