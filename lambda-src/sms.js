@@ -41,12 +41,12 @@ exports.handler = function(event, context, callback) {
   // Should we update the db?
   let optinStatus = null;
 
-  if (theMessage.includes('yes') || theMessage.includes('start')) {
+  if (theMessage === 'yes') {
     twiml.message(
       "Amazing! 🎉 You're awsome and we love you ❤ - ThoughtfulSMS",
     );
     optinStatus = optinStatuses.accepted;
-  } else if (theMessage.includes('no')) {
+  } else if (theMessage === 'no') {
     twiml.message(
       "Awwh 😥 We're sad to see you go. It's okay though, we still love you ❤ - ThoughtfulSMS",
     );
