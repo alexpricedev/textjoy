@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import uuid from 'uuid/v4';
 import StripeCheckout from 'react-stripe-checkout';
 import Select from 'react-select';
@@ -48,7 +48,8 @@ const customStyles = isError => ({
  * onToken make the request to our Stripe lambda endpoint
  * and create the purchase
  */
-const onToken = (metadata, setFinish) => token => {
+const onToken = (metadata, setStatus) => token => {
+  setStatus('loading');
   fetch(`${process.env.LAMBDA_ENDPOINT}/purchase`, {
     method: 'POST',
     body: JSON.stringify({
@@ -61,14 +62,14 @@ const onToken = (metadata, setFinish) => token => {
   })
     .then(response => {
       response.json().then(({ status }) => {
-        setFinish(status);
+        setStatus(status);
         if (status === 'succeeded' && window && window.fbq) {
           window.fbq('track', 'Purchase', { value: amount, currency });
         }
       });
     })
     .catch(err => {
-      setFinish('failed');
+      setStatus('failed');
       console.log(err);
     });
 };
@@ -114,22 +115,28 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
       <div className="cols">
         <form onSubmit={e => e.preventDefault()}>
           <h3 className="form-title">Make a Friend Smile Today</h3>
-          {status === 'succeeded' ? (
+          {(status === 'succeeded' || status === 'loading') && (
             <div className="form-success">
               <div>
-                <h4>Purchase complete! Thank-you 🙏</h4>
-                <button
-                  className="done-button"
-                  onClick={() => {
-                    setStatus(null);
-                    setFormValue(intialFormValues);
-                  }}
-                >
-                  Finish
-                </button>
+                {status === 'loading' ? (
+                  <h4>Please wait...</h4>
+                ) : (
+                  <Fragment>
+                    <h4>Purchase complete! Thank-you 🙏</h4>
+                    <button
+                      className="done-button"
+                      onClick={() => {
+                        setStatus(null);
+                        setFormValue(intialFormValues);
+                      }}
+                    >
+                      Finish
+                    </button>
+                  </Fragment>
+                )}
               </div>
             </div>
-          ) : null}
+          )}
           <label htmlFor="collectionId">Select a collection</label>
           <Select
             id="collectionId"
@@ -444,6 +451,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           }
         }
 
+        .form-loading,
         .form-success {
           animation-duration: 1.2s;
           animation-fill-mode: both;
@@ -460,6 +468,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           z-index: 99;
         }
 
+        .form-loading h4,
         .form-success h4 {
           font-size: 17px;
           margin-bottom: 20px;

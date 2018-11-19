@@ -68,7 +68,7 @@ exports.handler = function(event, context, callback) {
     .then(({ metadata }) => {
       return twilio.messages.create({
         body: `Woohoo! ${metadata.customerName ||
-          'Someone'} has just bought you a ThoughtfulSMS gift! 🎁 Every week we'll send you a lovely text message 💌 Simply reply YES to accept 👍 Learn more at thoughtfulsms.com`,
+          'Someone'} has just bought you a ThoughtfulSMS.com gift! Every week we'll send you a lovely text message. Reply YES to accept.`,
         to: metadata.recipientPhoneNumber, // send to this number
         from: process.env.TWILIO_PHONE_NUMBER, // from our Twilio number
       });
