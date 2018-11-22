@@ -12,6 +12,8 @@ const collections = {
     ],
     messages: [
       name =>
+        `Love, I appreciate your hard work and tenacity, even though I may not say it often enough. Its true ${name}! - ThoughtfulSMS`,
+      name =>
         `Dearest ${name}, I want you to know that I think about you often 💕 I'm your #1 fan and cheering you on. Go get ‘em! 😍 - ThoughtfulSMS`,
       name =>
         `If there were more people like you in the world it would be a better place! It's true ${name} 🌏  I'm glad we are on the same team 😻 - ThoughtfulSMS`,
