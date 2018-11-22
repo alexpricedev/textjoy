@@ -32,7 +32,7 @@ const collections = {
       name =>
         `Hey ${name}! You can do anything 🚀 You can be anything you want to be. As long as you believe in yourself and work hard 🤘 - ThoughtfulSMS`,
       name =>
-        `${name}!! 🤩 Tomorrow is too late, yesterday is over, and now is exactly the right moment to start! 💥 - ThoughtfulSMS`,
+        `Good things come to people who wait, but better things come to those who go and get them. Keep hustling ${name}! - ThoughtfulSMS`,
     ],
   },
   uplifting: {
@@ -46,9 +46,11 @@ const collections = {
       name =>
         `You know what ${name}? You're absolutely perfect, just the way you are 🙌 Don't you forget it! - ThougtfulSMS`,
     ],
-    messages: [
+    demoMessages: [
       name =>
-        `Good things come to people who wait, but better things come to those who go and get them. Keep hustling ${name}! - ThoughtfulSMS`,
+        `Hello ${name} 👋 You look just excellent today, especially when you smile like that! 😉 Keep up the good work! - ThoughtfulSMS`,
+      name =>
+        `You know what ${name}? You're absolutely perfect, just the way you are 🙌 Don't you forget it! - ThougtfulSMS`,
     ],
   },
   affirmation: {
