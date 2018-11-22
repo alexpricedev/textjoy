@@ -284,10 +284,14 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           </div>
           <h3>{collection.intro}</h3>
           <div className="message">
-            {collection.messages[0](formValues.recipientFirstName || 'Chloe')}
+            {collection.demoMessages[0](
+              formValues.recipientFirstName || 'Chloe',
+            )}
           </div>
           <div className="message message--two">
-            {collection.messages[1](formValues.recipientFirstName || 'James')}
+            {collection.demoMessages[1](
+              formValues.recipientFirstName || 'James',
+            )}
           </div>
         </div>
       </div>
