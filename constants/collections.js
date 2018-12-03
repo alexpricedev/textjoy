@@ -16,7 +16,7 @@ const collections = {
       name =>
         `Dearest ${name}, I want you to know that I think about you often 💕 I'm your #1 fan and cheering you on. Go get ‘em! 😍 - ThoughtfulSMS`,
       name =>
-        `If there were more people like you in the world it would be a better place! It's true ${name} 🌏  I'm glad we are on the same team 😻 - ThoughtfulSMS`,
+        `If there were more people like you in the world it would be a better place! It's true ${name}. I'm glad we are on the same team! - ThoughtfulSMS`,
     ],
   },
   motivation: {
@@ -48,7 +48,7 @@ const collections = {
       name =>
         `You know what ${name}? You're absolutely perfect, just the way you are 🙌 Don't you forget it! - ThougtfulSMS`,
     ],
-    demoMessages: [
+    messages: [
       name =>
         `Hello ${name} 👋 You look just excellent today, especially when you smile like that! 😉 Keep up the good work! - ThoughtfulSMS`,
       name =>
