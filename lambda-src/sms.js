@@ -42,18 +42,16 @@ exports.handler = function(event, context, callback) {
   let optinStatus = null;
 
   if (theMessage === 'yes') {
-    twiml.message(
-      "Amazing! 🎉 You're awsome and we love you ❤ - ThoughtfulSMS",
-    );
+    twiml.message("Amazing! 🎉 You're awsome and we love you ❤ - TextJoy");
     optinStatus = optinStatuses.accepted;
   } else if (theMessage === 'no') {
     twiml.message(
-      "Awwh 😥 We're sad to see you go. It's okay though, we still love you ❤ - ThoughtfulSMS",
+      "Awwh 😥 We're sad to see you go. It's okay though, we still love you ❤ - TextJoy",
     );
     optinStatus = optinStatuses.declined;
   } else {
     twiml.message(
-      "Ooops 🤯 We don't know what that means! Please reply YES to opt-in or NO to opt-out - ThoughtfulSMS",
+      "Ooops 🤯 We don't know what that means! Please reply YES to opt-in or NO to opt-out - TextJoy",
     );
   }
 

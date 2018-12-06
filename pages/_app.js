@@ -6,7 +6,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Reset from '../components/Reset';
 
-class ThoughtfulSMS extends App {
+class TextJoy extends App {
   static async getInitialProps({ Component, ctx }) {
     let pageProps = {};
 
@@ -24,12 +24,12 @@ class ThoughtfulSMS extends App {
       <Container>
         <Head>
           <title>
-            ThoughtfulSMS - Lovely Messages Delivered to Your Loved Ones Each
+            TextJoy - Inspirational Messages Delivered to Your Loved Ones Every
             Week
           </title>
           <meta
             name="description"
-            content="ThoughtfulSMS is a unique gift where you can buy a friend a year of delightful SMS messages sent directly to them, once per week."
+            content="TextJoy is a unique gift. We'll send a friend an inspirational SMS message once per week for a year! Multiple collections to choose from."
           />
           <meta
             name="viewport"
@@ -93,4 +93,4 @@ class ThoughtfulSMS extends App {
   }
 }
 
-export default ThoughtfulSMS;
+export default TextJoy;

@@ -5,7 +5,9 @@ import FAQ from '../components/FAQ';
 import { collections } from '../constants';
 
 const Index = () => {
-  const [currentCollectionId, setCollection] = useState(collections.love.id);
+  const [currentCollectionId, setCollection] = useState(
+    collections['inspirational-women'].id,
+  );
 
   return (
     <Fragment>

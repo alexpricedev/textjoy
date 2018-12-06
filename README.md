@@ -1,2 +1,2 @@
-# thoughtful-sms
-Weekly thoughtful messages via SMS
+# TextJoy
+Weekly inspirational messages via SMS

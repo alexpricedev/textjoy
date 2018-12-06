@@ -13,4 +13,6 @@ const optinStatuses = {
   declined: 'declined',
 };
 
-export { optinStatuses, collections, timezones, statusCode, headers };
+const suffix = ' -TextJoy';
+
+export { optinStatuses, collections, timezones, statusCode, headers, suffix };

@@ -1,7 +1,7 @@
 {
-  "name": "thoughtful-sms",
+  "name": "textjoy",
   "version": "1.0.0",
-  "description": "Main website for ThoughtfulSMS",
+  "description": "Main website for TextJoy",
   "main": "index.js",
   "scripts": {
     "dev": "concurrently \"next\" \"netlify-lambda serve lambda-src\"",

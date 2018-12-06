@@ -102,7 +102,7 @@ const CustomerTable = () => {
                       e.preventDefault();
                       const message = `Woohoo! ${customer.metadata
                         .customerName ||
-                        'Someone'} has just bought you a ThoughtfulSMS.com gift! Every week we'll send you a lovely text message. Reply YES to accept.`;
+                        'Someone'} has just bought you a TextJoy.co gift! Every week we'll send you an inspirational text message. Reply YES to accept.`;
                       send({
                         message,
                         metadata: customer.metadata,

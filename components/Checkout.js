@@ -108,10 +108,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
 
   return (
     <div className="wrapper">
-      <h2>
-        Thoughtful Messages Delivered To Your Friends &amp; Loved Ones Every
-        Week
-      </h2>
+      <h2>Inspiring Messages Delivered To Your Friends Every Week</h2>
       <div className="cols">
         <form onSubmit={e => e.preventDefault()}>
           <h3 className="form-title">Make a Friend Smile Today</h3>
@@ -209,10 +206,10 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           <StripeCheckout
             amount={amount}
             currency={currency}
-            description="Weekly thoughtful messages via SMS"
+            description="Weekly Inspirational Messages"
             image="https://s3.eu-west-2.amazonaws.com/remoteone/stripe-icon.png"
             locale="auto"
-            name="ThoughtfulSMS"
+            name="TextJoy"
             stripeKey={process.env.STRIPE_PUBLISHABLE_KEY}
             token={onToken(
               {
@@ -270,7 +267,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
         </form>
         <div className="col">
           <div className="mobile-collection-select">
-            <label htmlFor="mobileCollectionId">View collections</label>
+            <label htmlFor="mobileCollectionId">Select a collection</label>
             <Select
               id="mobileCollectionId"
               onChange={({ value }) => setCollection(value)}
@@ -322,8 +319,8 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           color: #ffffff;
           font-size: 36px;
           font-weight: 300;
-          margin: 0 0 40px;
-          padding: 0 20px;
+          margin: 0 0 50px;
+          padding: 0 40px;
           letter-spacing: 1px;
           text-align: center;
         }
@@ -352,7 +349,8 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
         @media only screen and (max-width: 834px) {
           h2 {
             font-size: 30px;
-            margin-bottom: 30px;
+            max-width: 500px;
+            margin: 0 auto 30px;
           }
 
           h3 {
@@ -391,6 +389,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
         .mobile-collection-select label {
           color: #fff;
           display: block;
+          padding-bottom: 3px;
           text-align: center;
         }
 

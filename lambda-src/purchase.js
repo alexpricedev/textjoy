@@ -43,7 +43,7 @@ exports.handler = function(event, context, callback) {
         amount: data.amount,
         source: data.token.id,
         receipt_email: data.token.email,
-        description: 'One year ThoughtfulSMS subscription',
+        description: 'One year TextJoy subscription',
         metadata: data.metadata,
       },
       {
@@ -68,7 +68,7 @@ exports.handler = function(event, context, callback) {
     .then(({ metadata }) => {
       return twilio.messages.create({
         body: `Woohoo! ${metadata.customerName ||
-          'Someone'} has just bought you a ThoughtfulSMS.com gift! Every week we'll send you a lovely text message. Reply YES to accept.`,
+          'Someone'} has just bought you a TextJoy.co gift! Every week we'll send you a inspirational text message. Reply YES to accept.`,
         to: metadata.recipientPhoneNumber, // send to this number
         from: process.env.TWILIO_PHONE_NUMBER, // from our Twilio number
       });
