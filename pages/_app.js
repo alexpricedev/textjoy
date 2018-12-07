@@ -40,6 +40,10 @@ class TextJoy extends App {
             type="image/x-icon"
           />
           <link rel="icon" href="/static/favicon.ico" type="image/x-icon" />
+          <meta
+            name="google-site-verification"
+            content="8EMJDrNHPI2I69NPIRIHJR_NK0Xs-AfGUN5EzdnOqtA"
+          />
 
           {/* Facebook pixel */}
           <script
