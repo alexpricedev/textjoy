@@ -19,7 +19,7 @@ const collections = {
   },
   'animal-facts': {
     id: 'animal-facts',
-    name: '🐷 Random Animal Facts',
+    name: '🐷 Random animal facts',
     intro:
       "Know an animal lover? This collection is perrrrfect for them! We'll send them a new interesting fact about a random animal every week!",
     demoMessages: [
@@ -37,7 +37,7 @@ const collections = {
   },
   'positive-news': {
     id: 'positive-news',
-    name: '👍 Positive News',
+    name: '👍 Positive news',
     intro:
       "Perfect for those that need a reminder that the world isn't all bad. Send a little bit of light with a recent positive new story once a week.",
     demoMessages: [
