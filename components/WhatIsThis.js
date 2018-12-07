@@ -1,7 +1,7 @@
 const WhatIsThis = () => (
   <div>
     <section className="wrapper">
-      <h2>What the hell is this?</h2>
+      <h2>What is TextJoy?</h2>
       <p className="first">
         TextJoy is weekly messaging service. We send lovely folks an
         inspirational, educational or motivational text message once a week for

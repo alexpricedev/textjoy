@@ -3,9 +3,20 @@ import uuid from 'uuid/v4';
 import StripeCheckout from 'react-stripe-checkout';
 import Select from 'react-select';
 import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import format from 'date-fns/format';
+import parse from 'date-fns/parse';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-phone-number-input/style.css';
+import 'react-day-picker/lib/style.css';
 
 import { collections, timezones } from '../constants';
+
+const TODAY = new Date();
+const FORMAT = 'do MMM y'; // 8th Dec 2018
+
+const formatDate = date => format(date, FORMAT, { awareOfUnicodeTokens: true });
+const parseDate = date =>
+  parse(date, FORMAT, TODAY, { awareOfUnicodeTokens: true });
 
 const amount = 500; // £5.00
 const currency = 'GBP';
@@ -89,6 +100,7 @@ const intialFormValues = {
       }
     : { value: '', label: '' },
   customerName: '',
+  startDate: TODAY,
 };
 
 const Checkout = ({ currentCollectionId, setCollection }) => {
@@ -184,6 +196,17 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
             options={timezoneOptions}
             styles={customStyles(error.field === 'recipientTimezone')}
             value={formValues.recipientTimezone}
+          />
+          <label htmlFor="startDate">Start date</label>
+          <DayPickerInput
+            disabledDays={{ before: TODAY }}
+            format={FORMAT}
+            formatDate={formatDate}
+            inputProps={{ className: 'input', id: 'startDate' }}
+            onDayChange={d => setFormValue({ ...formValues, startDate: d })}
+            parseDate={parseDate}
+            placeholder=""
+            value={formValues.startDate}
           />
           <label htmlFor="customerName">Enter your name</label>
           <input
@@ -627,6 +650,15 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
         #mobileCollectionId {
           margin: 0 auto;
           max-width: 300px;
+        }
+
+        .DayPickerInput {
+          display: block;
+        }
+
+        .DayPickerInput-OverlayWrapper {
+          top: -20px;
+          position: relative;
         }
       `}</style>
     </div>
