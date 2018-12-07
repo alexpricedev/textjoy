@@ -5,18 +5,16 @@ const FAQ = () => (
       <h3>Do you send them other messages?</h3>
       <p>
         We send one introductory opt-in message to inform the giftee that
-        someone has purchased an SMS gift for them along with information about
-        how to start and end their gift. Other than that, this is an simply an
-        uplifting, mood enhancing text service! There will be no bombarding or
-        spam, just one lovely SMS per week!
+        someone has purchased an SMS gift for them, along with information about
+        how to start and stop the service. There will be no bombarding or spam,
+        just one lovely SMS per week!
       </p>
     </div>
     <div>
       <h3>Will they know it's from me?</h3>
       <p>
         Yes. We tell them who has signed them up in our first opt-in message.
-        This helps stop recipients thinking it's a spam message. We may soon add
-        an option to remain anonymous.I
+        This helps stop recipients thinking it's spam.
       </p>
     </div>
     <div>
@@ -32,19 +30,22 @@ const FAQ = () => (
         We currently only accept Bristish Prounds (GBP). We can't offer
         subscriptions in any other currencies at this moment.
       </p>
+      <p style={{ opacity: '0.3', fontSize: '0.8em' }}>
+        Rough conversion: £5 ≈ $6.50 ≈ €6
+      </p>
     </div>
     <style jsx>{`
       section {
         display: flex;
         flex-wrap: wrap;
-        margin: 50px 0 0;
+        margin: 60px 0 0;
         padding-bottom: 50px;
       }
 
       h2 {
         flex: 0 0 100%;
         font-size: 37px;
-        margin: 0 0 40px;
+        margin: 0 0 50px;
         position: relative;
       }
 
@@ -79,6 +80,7 @@ const FAQ = () => (
 
       p {
         color: #2f2f2f;
+        line-height: 1.4;
       }
 
       @media only screen and (max-width: 834px) {

@@ -320,7 +320,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           font-size: 36px;
           font-weight: 300;
           margin: 0 0 50px;
-          padding: 0 40px;
+          padding: 0 50px;
           letter-spacing: 1px;
           text-align: center;
         }
@@ -329,6 +329,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
           font-size: 20px;
           margin: 0 0 30px;
           position: relative;
+          padding: 0 20px;
           text-align: left;
         }
 
@@ -349,12 +350,15 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
         @media only screen and (max-width: 834px) {
           h2 {
             font-size: 30px;
-            max-width: 500px;
             margin: 0 auto 30px;
+            max-width: 500px;
+            padding-left: 20px;
+            padding-right: 20px;
           }
 
           h3 {
             text-align: center;
+            padding: 0 15px;
             margin: 0 0 40px;
           }
 
@@ -371,7 +375,6 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
 
           h3 {
             font-size: 18px;
-            padding: 0 20px;
           }
         }
 

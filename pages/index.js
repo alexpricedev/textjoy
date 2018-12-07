@@ -3,6 +3,7 @@ import React, { Fragment, useState } from 'react';
 import Header from '../components/Header';
 import Checkout from '../components/Checkout';
 import FAQ from '../components/FAQ';
+import WhatIsThis from '../components/WhatIsThis';
 import { collections } from '../constants';
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
           setCollection={setCollection}
         />
       </div>
+      <WhatIsThis />
       <div className="wrapper">
         <FAQ />
       </div>

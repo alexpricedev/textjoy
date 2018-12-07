@@ -17,6 +17,24 @@ const collections = {
         'Benazir Bhutto was the first woman to head a Muslim state. She ended military dictatorship in Pakistan, and fought for womens rights!',
     ],
   },
+  'animal-facts': {
+    id: 'animal-facts',
+    name: '🐷 Random Animal Facts',
+    intro:
+      "Know an animal lover? This collection is perrrrfect for them! We'll send them a new interesting fact about a random animal every week!",
+    demoMessages: [
+      name =>
+        `Hey ${name}, Did you know that if you lift a Kangaroo's tail off the ground, it can't hop around?! This is because they use their tails for balance! ⚖️`,
+      name =>
+        `Good afternoon ${name}! The leg bones of a bat are so thin, that out of the 1200 different species of bat, only 2 of them can walk on the ground! 🦇`,
+    ],
+    messages: [
+      () =>
+        `The European parliament has voted for a sweeping ban on a wide range of single-use plastics in a bid to tackle pollution of oceans and waterways. Yay!`,
+      () =>
+        `In India, ceremonial flowers form a third of the total solid waste. A student has launched a company which turns it into essential oils. Amazing!`,
+    ],
+  },
   'positive-news': {
     id: 'positive-news',
     name: '👍 Positive News',
