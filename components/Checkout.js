@@ -365,8 +365,13 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
 
         @media only screen and (max-width: 400px) {
           h2 {
-            font-size: 27px;
+            font-size: 26px;
             margin-bottom: 20px;
+          }
+
+          h3 {
+            font-size: 18px;
+            padding: 0 20px;
           }
         }
 

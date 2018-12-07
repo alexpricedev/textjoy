@@ -6,8 +6,8 @@ const Header = () => (
     <style jsx>{`
       .logo {
         max-width: 300px;
-        margin: 20px auto 0;
-        padding: 30px 20px;
+        margin: 0 auto;
+        padding: 50px 20px 30px;
       }
     `}</style>
   </div>

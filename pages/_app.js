@@ -2,7 +2,6 @@ import React from 'react';
 import Head from 'next/head';
 import App, { Container } from 'next/app';
 
-import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Reset from '../components/Reset';
 
@@ -61,7 +60,6 @@ class TextJoy extends App {
             }}
           />
         </Head>
-        <Header />
         <Component {...pageProps} />
         <Footer />
         <Reset />
@@ -71,7 +69,6 @@ class TextJoy extends App {
           }
 
           body {
-            background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
             color: #505050;
             font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
             line-height: 1.3;

@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 
+import Header from '../components/Header';
 import Checkout from '../components/Checkout';
 import FAQ from '../components/FAQ';
 import { collections } from '../constants';
@@ -11,14 +12,22 @@ const Index = () => {
 
   return (
     <Fragment>
-      <Checkout
-        currentCollectionId={currentCollectionId}
-        setCollection={setCollection}
-      />
+      <div className="bg">
+        <Header />
+        <Checkout
+          currentCollectionId={currentCollectionId}
+          setCollection={setCollection}
+        />
+      </div>
       <div className="wrapper">
         <FAQ />
       </div>
       <style jsx>{`
+        .bg {
+          background-image: linear-gradient(to top, #37ecba 0%, #72afd3 100%);
+          padding-bottom: 40px;
+        }
+
         .leader {
           background: #909bce;
           margin: 0 0 40px;

@@ -1,5 +1,6 @@
 const FAQ = () => (
   <section>
+    <h2>Frequent Questions</h2>
     <div>
       <h3>Do you send them other messages?</h3>
       <p>
@@ -40,10 +41,32 @@ const FAQ = () => (
         padding-bottom: 50px;
       }
 
+      h2 {
+        flex: 0 0 100%;
+        font-size: 37px;
+        margin: 0 0 40px;
+        position: relative;
+      }
+
+      h2::after {
+        content: '';
+        display: block;
+        background: black;
+        width: 50%;
+        height: 2px;
+        position: absolute;
+        bottom: -15px;
+        left: 0;
+      }
+
       div {
-        flex: 1 1 50%;
-        text-align: center;
-        padding: 0 20px 70px;
+        flex: 1 1 40%;
+        padding: 0 25px 70px 0;
+      }
+
+      div:nth-of-type(even) {
+        padding-right: 0;
+        padding-left: 25px;
       }
 
       h3 {
@@ -59,15 +82,37 @@ const FAQ = () => (
       }
 
       @media only screen and (max-width: 834px) {
-        div {
+        h2 {
+          padding: 0 40px;
+        }
+
+        div,
+        div:nth-of-type(even) {
           flex-basis: 100%;
-          padding-left: 40px;
-          padding-right: 40px;
+          padding: 0 40px 30px;
+        }
+
+        h3 {
+          margin-bottom: 10px;
+        }
+
+        h2::after {
+          left: 40px;
         }
       }
 
-      @media only screen and (max-width: 400px) {
-        div {
+      @media only screen and (max-width: 500px) {
+        h2 {
+          font-size: 28px;
+          padding: 0 20px;
+        }
+
+        h2::after {
+          left: 20px;
+        }
+
+        div,
+        div:nth-of-type(even) {
           padding-left: 20px;
           padding-right: 20px;
         }
