@@ -22,8 +22,7 @@ exports.handler = function(event, context, callback) {
       // We might also have some chargebee customer payments (from RemoteOne)
       // so lets filter all of the others out
       const ourCustomers = data.filter(
-        c =>
-          c.description.toLowerCase().includes('thoughtfulsms') && !c.refunded,
+        c => c.description.toLowerCase().includes('textjoy') && !c.refunded,
       );
       callback(null, {
         statusCode,

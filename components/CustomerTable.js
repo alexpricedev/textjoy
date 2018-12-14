@@ -73,7 +73,7 @@ const CustomerTable = () => {
               </div>
               <div className="cell" data-title="Customer">
                 {customer.metadata.customerName || 'No name'} (
-                {customer.metadata.customerEmail || ''})
+                {customer.receipt_email || ''})
               </div>
               <div className="cell" data-title="Actions">
                 {customer.metadata.optinStatus === optinStatuses.accepted && (

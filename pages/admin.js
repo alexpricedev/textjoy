@@ -1,8 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import netlifyIdentity from 'netlify-identity-widget';
 
 import Button from '../components/Button';
 import CustomerTable from '../components/CustomerTable';
+import CollectionsTable from '../components/CollectionsTable';
 
 const Admin = () => {
   const [currentUser, setUser] = useState(null);
@@ -42,6 +43,7 @@ const Admin = () => {
       </center>
 
       {currentUser && <CustomerTable />}
+      {currentUser && <CollectionsTable />}
 
       <style global jsx>{`
         #admin-app {
