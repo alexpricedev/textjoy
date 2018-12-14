@@ -69,6 +69,8 @@ const collections = {
         `Hey ${name}! You can do anything 🚀 You can be anything you want to be. As long as you believe in yourself and work hard 🤘`,
       name =>
         `Good things come to people who wait, but better things come to those who go and get them. Keep hustling ${name}!`,
+      name =>
+        `Believe in yourself and have faith in your abilities! Be humble but have confidence in your own powers and you will be successful and happy.`,
     ],
   },
   // uplifting: {
