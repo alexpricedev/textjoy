@@ -81,11 +81,12 @@ const CustomerTable = () => {
                     onClick={e => {
                       e.preventDefault();
                       // Get the message by injecting their first name into it
-                      const message = collections[
+                      let message = collections[
                         customer.metadata.collectionId
                       ].messages[customer.metadata.nOfLastMessage || 0](
                         customer.metadata.recipientFirstName,
                       );
+                      message = message + ' - TextJoy';
                       send({
                         message,
                         metadata: customer.metadata,
