@@ -10,7 +10,6 @@ const WhatIsThis = () => (
       <p>
         Our aim is to bring a smile to peoples faces and maybe teach them a
         thing or two! Buy it for your loved ones as a gift, or treat yourself.
-        You deserve it.
       </p>
     </section>
     <style jsx>{`
