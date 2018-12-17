@@ -53,26 +53,26 @@ const collections = {
         `In India, ceremonial flowers form a third of the total solid waste. A student has launched a company which turns it into essential oils. Amazing!`,
     ],
   },
-  motivational: {
-    id: 'motivational',
-    name: '💪 Motivational',
-    intro:
-      'Perfect for your gym buddy, your co-worker or that go-getter that is high energy and loves a little push to get through the to-dos.',
-    demoMessages: [
-      name =>
-        `Hey ${name}! You can do anything 🚀 You can be anything you want to be. As long as you believe in yourself and work hard 🤘`,
-      name =>
-        `${name}!! 🤩 Tomorrow is too late, yesterday is over, and now is exactly the right moment to start! 💥`,
-    ],
-    messages: [
-      name =>
-        `Hey ${name}! You can do anything 🚀 You can be anything you want to be. As long as you believe in yourself and work hard 🤘`,
-      name =>
-        `Good things come to people who wait, but better things come to those who go and get them. Keep hustling ${name}!`,
-      name =>
-        `Believe in yourself and have faith in your abilities! Be humble but have confidence in your own powers and you will be successful and happy.`,
-    ],
-  },
+  // motivational: {
+  //   id: 'motivational',
+  //   name: '💪 Motivational',
+  //   intro:
+  //     'Perfect for your gym buddy, your co-worker or that go-getter that is high energy and loves a little push to get through the to-dos.',
+  //   demoMessages: [
+  //     name =>
+  //       `Hey ${name}! You can do anything 🚀 You can be anything you want to be. As long as you believe in yourself and work hard 🤘`,
+  //     name =>
+  //       `${name}!! 🤩 Tomorrow is too late, yesterday is over, and now is exactly the right moment to start! 💥`,
+  //   ],
+  //   messages: [
+  //     name =>
+  //       `Hey ${name}! You can do anything 🚀 You can be anything you want to be. As long as you believe in yourself and work hard 🤘`,
+  //     name =>
+  //       `Good things come to people who wait, but better things come to those who go and get them. Keep hustling ${name}!`,
+  //     name =>
+  //       `Believe in yourself and have faith in your abilities! Be humble but have confidence in your own powers and you will be successful and happy.`,
+  //   ],
+  // },
   // uplifting: {
   //   id: 'uplifting',
   //   name: 'Uplifting',
