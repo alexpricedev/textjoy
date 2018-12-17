@@ -103,7 +103,7 @@ const CustomerTable = () => {
                       e.preventDefault();
                       const message = `Woohoo! ${customer.metadata
                         .customerName ||
-                        'Someone'} has just bought you a TextJoy.co gift! Every week we'll send you an inspirational text message. Reply YES to accept.`;
+                        'Someone'} has just bought you a TextJoy.co gift! Every month we'll send you an educational message. Reply YES to accept.`;
                       send({
                         message,
                         metadata: customer.metadata,

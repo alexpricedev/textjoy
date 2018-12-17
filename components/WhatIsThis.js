@@ -3,9 +3,9 @@ const WhatIsThis = () => (
     <section className="wrapper">
       <h2>What is TextJoy?</h2>
       <p className="first">
-        TextJoy is weekly messaging service. We send lovely folks an
-        inspirational, educational or motivational text message once a week for
-        a whole year.
+        TextJoy is monthly messaging service. We send your friends and loved
+        ones an inspirational and educational text message once a week for six
+        months or a whole year.
       </p>
       <p>
         Our aim is to bring a smile to peoples faces and maybe teach them a

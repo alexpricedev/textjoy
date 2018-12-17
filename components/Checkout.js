@@ -18,7 +18,20 @@ const formatDate = date => format(date, FORMAT, { awareOfUnicodeTokens: true });
 const parseDate = date =>
   parse(date, FORMAT, TODAY, { awareOfUnicodeTokens: true });
 
-const amount = 500; // £5.00
+const packages = {
+  sixMonths: {
+    id: 'sixMonths',
+    name: 'Six Months',
+    price: 299, // £2.99
+    priceFormatted: '£2.99',
+  },
+  twelveMonths: {
+    id: 'twelveMonths',
+    name: 'Twelve Months',
+    price: 499, // £4.99
+    priceFormatted: '£4.99',
+  },
+};
 const currency = 'GBP';
 const timezoneOptions = timezones.map(tz => ({
   value: tz.name,
@@ -30,6 +43,10 @@ const collectionOptions = Object.entries(collections).map(
     label: collection.name,
   }),
 );
+const packageOptions = Object.entries(packages).map(([_, pack]) => ({
+  value: pack.id,
+  label: `${pack.name} - Only ${pack.priceFormatted}`,
+}));
 
 const customStyles = isError => ({
   container: provided => ({
@@ -101,6 +118,12 @@ const intialFormValues = {
     : { value: '', label: '' },
   customerName: '',
   startDate: TODAY,
+  package: {
+    value: packages.sixMonths.id,
+    label: `${packages.sixMonths.name} - Only ${
+      packages.sixMonths.priceFormatted
+    }`,
+  },
 };
 
 const Checkout = ({ currentCollectionId, setCollection }) => {
@@ -117,10 +140,11 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
   };
 
   const collection = collections[currentCollectionId];
+  const pack = packages[formValues.package.value];
 
   return (
     <div className="wrapper">
-      <h2>Inspiring Messages Delivered To Your Friends Every Week</h2>
+      <h2>Educational Text Messages Delivered To Your Friends Every Month</h2>
       <div className="cols">
         <form onSubmit={e => e.preventDefault()}>
           <h3 className="form-title">Make a Friend Smile Today</h3>
@@ -218,6 +242,16 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
             value={formValues.customerName}
             type="tel"
           />
+          <label htmlFor="package">Package</label>
+          <Select
+            id="package"
+            onChange={p => {
+              setFormValue({ ...formValues, package: p });
+            }}
+            options={packageOptions}
+            styles={customStyles(error.field === 'package')}
+            value={formValues.package}
+          />
           {error.message && (
             <div className="error-message">{error.message}</div>
           )}
@@ -227,9 +261,9 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
             </div>
           )}
           <StripeCheckout
-            amount={amount}
+            amount={pack.price}
             currency={currency}
-            description="Weekly Inspirational Messages"
+            description="Monthly Educational Text Messages"
             image="https://s3.eu-west-2.amazonaws.com/remoteone/stripe-icon.png"
             locale="auto"
             name="TextJoy"
@@ -238,6 +272,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
               {
                 ...formValues,
                 recipientTimezone: formValues.recipientTimezone.value,
+                package: formValues.package.value,
                 collectionId: currentCollectionId,
               },
               setStatus,
@@ -284,7 +319,7 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
                 }
               }}
             >
-              Buy Now - Just £5 For a Year
+              Buy Now
             </button>
           </StripeCheckout>
         </form>
