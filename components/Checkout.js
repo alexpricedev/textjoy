@@ -242,14 +242,6 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
             value={formValues.customerName}
             type="tel"
           />
-          {error.message && (
-            <div className="error-message">{error.message}</div>
-          )}
-          {status === 'failed' && (
-            <div className="error-message">
-              Something went wrong... we're really sorry
-            </div>
-          )}
           <label htmlFor="package">Package</label>
           <Select
             id="package"
@@ -260,6 +252,14 @@ const Checkout = ({ currentCollectionId, setCollection }) => {
             styles={customStyles(error.field === 'package')}
             value={formValues.package}
           />
+          {error.message && (
+            <div className="error-message">{error.message}</div>
+          )}
+          {status === 'failed' && (
+            <div className="error-message">
+              Something went wrong... we're really sorry
+            </div>
+          )}
           <StripeCheckout
             amount={pack.price}
             currency={currency}
