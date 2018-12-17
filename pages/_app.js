@@ -23,12 +23,12 @@ class TextJoy extends App {
       <Container>
         <Head>
           <title>
-            TextJoy - Inspirational Messages Delivered to Your Loved Ones Every
-            Week
+            TextJoy - Educational Messages Delivered to Your Loved Ones Every
+            Month
           </title>
           <meta
             name="description"
-            content="TextJoy is a unique gift. We'll send a friend an inspirational SMS message once per week for a year! Multiple collections to choose from."
+            content="TextJoy is a unique and eco-friendly gift. We'll send your friend an educational SMS message once per month for a whole year!"
           />
           <meta
             name="viewport"

@@ -43,7 +43,7 @@ exports.handler = function(event, context, callback) {
         amount: data.amount,
         source: data.token.id,
         receipt_email: data.token.email,
-        description: 'One year TextJoy subscription',
+        description: 'TextJoy purchase',
         metadata: data.metadata,
       },
       {

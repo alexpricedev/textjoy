@@ -1,2 +1,2 @@
 # TextJoy
-Weekly inspirational messages via SMS
+Weekly educational messages via SMS
