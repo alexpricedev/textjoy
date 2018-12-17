@@ -19,9 +19,9 @@ const collections = {
   },
   'animal-facts': {
     id: 'animal-facts',
-    name: '🐷 Random animal facts',
+    name: '🐷 Amazing animal facts',
     intro:
-      "Know an animal lover? This collection is perrrrfect for them! We'll send them a new interesting fact about a random animal every week!",
+      "Know an animal lover? This collection is perrrrfect for them! We'll send them a new interesting fact about a random animal once a month!",
     demoMessages: [
       name =>
         `Hey ${name}, Did you know that if you lift a Kangaroo's tail off the ground, it can't hop around?! This is because they use their tails for balance! ⚖️`,
