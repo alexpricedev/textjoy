@@ -66,16 +66,16 @@ exports.handler = function(event, context, callback) {
       return charge;
     })
     .then(({ metadata }) => {
-      return twilio.messages.create({
-        body: `Woohoo! ${metadata.customerName ||
-          'Someone'} has just bought you a TextJoy.co gift! Every week we'll send you a inspirational text message. Reply YES to accept.`,
-        to: metadata.recipientPhoneNumber, // send to this number
-        from: process.env.TWILIO_PHONE_NUMBER, // from our Twilio number
-      });
+      // return twilio.messages.create({
+      //   body: `Woohoo! ${metadata.customerName ||
+      //     'Someone'} has just bought you a TextJoy.co gift! Every week we'll send you a inspirational text message. Reply YES to accept.`,
+      //   to: metadata.recipientPhoneNumber, // send to this number
+      //   from: process.env.TWILIO_PHONE_NUMBER, // from our Twilio number
+      // });
     })
-    .then(message => console.log('Message sent: ', message))
+    // .then(message => console.log('Message sent: ', message))
     .catch(err => {
-      console.log('Catch || Error sending welcome SMS:', err);
+      console.log('Catch || Error making charge', err);
       callback(err, {
         statusCode,
         headers,
