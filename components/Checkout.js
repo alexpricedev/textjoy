@@ -77,11 +77,13 @@ const customStyles = isError => ({
  * and create the purchase
  */
 const onToken = (metadata, setStatus) => token => {
+  const { price } = packages[metadata.package];
+
   setStatus('loading');
   fetch(`${process.env.LAMBDA_ENDPOINT}/purchase`, {
     method: 'POST',
     body: JSON.stringify({
-      amount,
+      amount: price,
       currency,
       idempotency_key: uuid(),
       token,
@@ -92,7 +94,7 @@ const onToken = (metadata, setStatus) => token => {
       response.json().then(({ status }) => {
         setStatus(status);
         if (status === 'succeeded' && window && window.fbq) {
-          window.fbq('track', 'Purchase', { value: amount, currency });
+          window.fbq('track', 'Purchase', { value: price, currency });
         }
       });
     })
