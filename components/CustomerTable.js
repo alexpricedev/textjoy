@@ -111,7 +111,7 @@ const CustomerTable = () => {
                       });
                     }}
                     small
-                    text="Re-send Opt-in"
+                    text="Send First Message"
                   />
                 )}
               </div>

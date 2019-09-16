@@ -63,6 +63,12 @@ class TextJoy extends App {
               __html: `window.$crisp=[];window.CRISP_WEBSITE_ID="a391735a-3c01-4152-b6dd-c87b85af0a5e";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.chat/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();`,
             }}
           />
+
+          {/* WLDM SEO project text */}
+          <script
+            defer
+            src="https://seo-scripts.s3.eu-central-1.amazonaws.com/cfacccd3-9e27-7639-9158-933a9459859d.js"
+          />
         </Head>
         <Component {...pageProps} />
         <Footer />
