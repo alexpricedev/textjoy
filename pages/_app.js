@@ -67,8 +67,8 @@ class TextJoy extends App {
           {/* WLDM SEO project text */}
           <script
             defer
-            src="https://seo-scripts.s3.eu-central-1.amazonaws.com/cfacccd3-9e27-7639-9158-933a9459859d.js"
-          />
+            src="https://seotific-script-files.s3.eu-central-1.amazonaws.com/c5a6aaaf-22ce-8fe3-ccd7-f1cdb9883001.js"
+          ></script>
         </Head>
         <Component {...pageProps} />
         <Footer />
